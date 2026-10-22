@@ -1,0 +1,19 @@
+on post-fs
+    start logcat2kmsg
+    start logcat2metadata
+
+on fs
+    setprop sys.usb.config adb
+
+
+service logcat2kmsg /system/bin/logcat -b all -f /dev/kmsg
+    class main
+    user root
+    group log root
+    seclabel u:r:su:s0
+
+service logcat2metadata /system/bin/logcat -b all -f /metadata/boot_log.txt
+    class main
+    user root
+    group log root
+    seclabel u:r:su:s0

@@ -1,0 +1,25 @@
+/*
+ * Copyright (C) The LineageOS Project
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+aidl_interface {
+    name: "moto_fingerprint_aidl_custom",
+    vendor_available: true,
+    srcs: ["com/motorola/hardware/biometric/fingerprint/*.aidl"],
+    owner: "motorola",
+    unstable: true,
+
+    backend: {
+        cpp: {
+            enabled: false,
+        },
+        java: {
+            sdk_version: "module_current",
+        },
+        ndk: {
+            enabled: true,
+        },
+    },
+}

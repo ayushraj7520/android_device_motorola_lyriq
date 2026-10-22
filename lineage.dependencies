@@ -1,0 +1,22 @@
+[
+  {
+    "repository": "android_device_motorola_lyriq-kernel",
+    "target_path": "device/motorola/lyriq-kernel"
+  },
+  {
+    "repository": "proprietary_vendor_motorola_lyriq",
+    "target_path": "vendor/motorola/lyriq"
+  },
+  {
+    "repository": "android_hardware_motorola",
+    "target_path": "hardware/motorola"
+  },
+  {
+    "repository": "android_hardware_mediatek",
+    "target_path": "hardware/mediatek"
+  },
+  {
+    "repository": "android_device_mediatek_sepolicy_vndr",
+    "target_path": "device/mediatek/sepolicy_vndr"
+  }
+]

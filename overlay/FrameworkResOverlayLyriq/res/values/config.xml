@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Type of the udfps sensor. 1 - Optical, 2 - Ultrasonic -->
+    <integer name="config_udfps_sensor_type">1</integer>
+
+    <!-- Fingerprint Sensor location and radius:
+         X, Y, Radius
+         These coordinates are for a 1080x2400 resolution.
+         X = 1080 / 2 = 540
+         Y = ~2075
+         Radius = 115
+    -->
+    <integer-array name="config_udfps_sensor_props" translatable="false">
+        <item>540</item>
+        <item>2164</item>
+        <item>115</item>
+    </integer-array>
+
+    <!-- Support for under-display fingerprint sensor -->
+    <bool name="config_supportsUdfps">true</bool>
+
+    <!-- Wide Color Gamut (WCG) and HDR props -->
+    <bool name="config_setColorTransformAccelerated">true</bool>
+    <bool name="config_enableWcgMode">true</bool>
+
+    <!-- Array of light sensor HAL types supported by this device. -->
+    <string-array name="config_displayLightSensorNames" translatable="false">
+        <item>android.sensor.light</item>
+    </string-array>
+
+    <!-- Indicate whether to allow the device to suspend when the screen is off
+         due to the proximity sensor -->
+    <bool name="config_suspendWhenScreenOffDueToProximity">true</bool>
+
+    <!-- Hardware keys -->
+    <integer name="config_deviceHardwareWakeKeys">64</integer>
+    <integer name="config_deviceHardwareKeys">64</integer>
+
+    <!-- Cutout -->
+    <string name="config_mainBuiltInDisplayCutout">M -35,0 L 35,0 L 35,105 L -35,105 Z</string>
+
+    <!-- Refresh Rates -->
+    <integer name="config_defaultRefreshRate">0</integer>
+    <integer name="config_defaultPeakRefreshRate">144</integer>
+</resources>

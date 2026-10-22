@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Fingerprint sensor location [sensorId]:[sensorLocationX]:[sensorLocationY]:[sensorRadius] -->
+    <string-array name="config_udfps_sensor_props" translatable="false">
+        <item>0:540:2164:115</item>
+    </string-array>
+</resources>

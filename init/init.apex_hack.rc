@@ -1,0 +1,10 @@
+on post-fs-data
+    # Create APEX directories manually without encryption=Require
+    # This allows apexd to decompress the tethering APEX even though FBE is disabled
+    mkdir /data/apex 0755 root system
+    mkdir /data/apex/active 0755 root system
+    mkdir /data/apex/backup 0700 root system
+    mkdir /data/apex/decompressed 0755 root system
+    mkdir /data/apex/hashtree 0700 root system
+    mkdir /data/apex/sessions 0700 root system
+    mkdir /data/apex/ota_reserved 0700 root system

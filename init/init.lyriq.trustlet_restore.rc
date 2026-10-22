@@ -1,0 +1,8 @@
+service lyriq_trustlet_restore /vendor/bin/init.lyriq.trustlet_restore.sh
+    user system
+    group system
+    disabled
+    oneshot
+
+on post-fs-data
+    start lyriq_trustlet_restore

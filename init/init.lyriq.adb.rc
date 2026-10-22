@@ -1,0 +1,9 @@
+# Force USB debugging ON on every boot (bringup device, ro.debuggable=1 only)
+service enable_adb_setting /system/bin/sh -c "settings put global adb_enabled 1"
+    user system
+    group system
+    disabled
+    oneshot
+
+on property:sys.boot_completed=1 && property:ro.debuggable=1
+    start enable_adb_setting
