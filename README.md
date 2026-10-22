@@ -54,6 +54,10 @@ Device configuration for **Motorola Edge 40 (`lyriq`)** targeting **LineageOS 22
 ## Build Instructions
 
 ```bash
+# 1. Apply required AOSP/LineageOS source tree patches (rild, sepolicy, codec2 headers, etc.)
+./device/motorola/lyriq/apply-patches.sh
+
+# 2. Set up environment and build flashable OTA zip
 source build/envsetup.sh
 lunch lineage_lyriq-ap4a-userdebug
 mka bacon -j$(nproc)

@@ -1,0 +1,32 @@
+diff --git a/target/product/telephony_vendor.mk b/target/product/telephony_vendor.mk
+index 94887cf..a9fb06e 100644
+--- a/target/product/telephony_vendor.mk
++++ b/target/product/telephony_vendor.mk
+@@ -18,5 +18,5 @@
+ # hardware, and install outside the system partition.
+ 
+ # /vendor packages
+-PRODUCT_PACKAGES := \
+-    rild \
++# NOTE: generic AOSP rild removed - MTK lyriq uses mtkfusionrild (vendor/motorola prebuilt)
++PRODUCT_PACKAGES :=
+diff --git a/tools/releasetools/build_image.py b/tools/releasetools/build_image.py
+index 4755aac..c6a9a5c 100755
+--- a/tools/releasetools/build_image.py
++++ b/tools/releasetools/build_image.py
+@@ -941,11 +941,13 @@ def BuildImageOrVBMeta(input_directory, target_out, glob_dict, image_properties,
+ 
+ 
+ def CopyInputDirectory(src, dst, filter_file):
++  seen = set()
+   with open(filter_file, 'r') as f:
+     for line in f:
+       line = line.strip()
+-      if not line:
+-        return
++      if not line or line in seen:
++        continue
++      seen.add(line)
+       if line != os.path.normpath(line):
+         sys.exit(f"{line}: not normalized")
+       if line.startswith("../") or line.startswith('/'):

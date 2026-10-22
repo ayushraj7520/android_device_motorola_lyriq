@@ -1,0 +1,24 @@
+diff --git a/gatekeeper/1.0/software/android.hardware.gatekeeper@1.0-service.software.rc b/gatekeeper/1.0/software/android.hardware.gatekeeper@1.0-service.software.rc
+index 60cb96c..d0730fc 100644
+--- a/gatekeeper/1.0/software/android.hardware.gatekeeper@1.0-service.software.rc
++++ b/gatekeeper/1.0/software/android.hardware.gatekeeper@1.0-service.software.rc
+@@ -1,4 +1,5 @@
+ service vendor.gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service.software
++    interface android.hardware.gatekeeper@1.0::IGatekeeper default
+     class hal
+     user system
+     group system
+diff --git a/security/keymint/aidl/default/android.hardware.security.keymint-service.rc b/security/keymint/aidl/default/android.hardware.security.keymint-service.rc
+index 0c3a6e1..92873fe 100644
+--- a/security/keymint/aidl/default/android.hardware.security.keymint-service.rc
++++ b/security/keymint/aidl/default/android.hardware.security.keymint-service.rc
+@@ -1,3 +1,8 @@
+ service vendor.keymint-default /vendor/bin/hw/android.hardware.security.keymint-service
++    interface aidl android.hardware.security.keymint.IKeyMintDevice/default
++    interface aidl android.hardware.security.keymint.IRemotelyProvisionedComponent/default
++    interface aidl android.hardware.security.sharedsecret.ISharedSecret/default
++    interface aidl android.hardware.security.secureclock.ISecureClock/default
+     class early_hal
+-    user nobody
++    user keystore
++    group keystore drmrpc

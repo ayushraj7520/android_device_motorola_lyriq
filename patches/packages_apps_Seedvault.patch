@@ -1,0 +1,13 @@
+diff --git a/storage/lib/src/main/java/org/calyxos/backup/storage/ui/restore/SnapshotFragment.kt b/storage/lib/src/main/java/org/calyxos/backup/storage/ui/restore/SnapshotFragment.kt
+index 27be710..0f22ec8 100644
+--- a/storage/lib/src/main/java/org/calyxos/backup/storage/ui/restore/SnapshotFragment.kt
++++ b/storage/lib/src/main/java/org/calyxos/backup/storage/ui/restore/SnapshotFragment.kt
+@@ -57,7 +57,7 @@ public abstract class SnapshotFragment : Fragment(), SnapshotClickListener {
+                 }
+ 
+                 is SnapshotResult.Error -> {
+-                    val color = resources.getColor(R.color.design_default_color_error, null)
++                    val color = resources.getColor(android.R.color.holo_red_dark, null)
+                     emptyStateView.setTextColor(color)
+                     emptyStateView.setText(R.string.snapshots_error)
+                     emptyStateView.visibility = VISIBLE

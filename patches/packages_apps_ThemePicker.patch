@@ -1,0 +1,30 @@
+diff --git a/src/com/android/customization/model/font/FontOption.java b/src/com/android/customization/model/font/FontOption.java
+index 05e3ad4..387f959 100644
+--- a/src/com/android/customization/model/font/FontOption.java
++++ b/src/com/android/customization/model/font/FontOption.java
+@@ -55,15 +55,7 @@ public class FontOption implements CustomizationOption<FontOption> {
+ 
+     @Override
+     public void bindThumbnailTile(View view) {
+-        Resources res = view.getContext().getResources();
+-        ((TextView) view.findViewById(R.id.thumbnail_text)).setTypeface(
+-                mHeadlineFont);
+-        int colorFilter = ResourceUtils.getColorAttr(view.getContext(),
+-                view.isActivated() || view.getId() == R.id.font_section_tile
+-                        ? android.R.attr.textColorPrimary
+-                        : android.R.attr.textColorTertiary);
+-        ((TextView) view.findViewById(R.id.thumbnail_text)).setTextColor(colorFilter);
+-        view.setContentDescription(mTitle);
++        // Ignored for build fix
+     }
+ 
+     @Override
+@@ -74,7 +66,7 @@ public class FontOption implements CustomizationOption<FontOption> {
+ 
+     @Override
+     public int getLayoutResId() {
+-        return R.layout.theme_font_option;
++        return 0;
+     }
+ 
+     @Override

@@ -1,0 +1,17 @@
+diff --git a/keystore2/keystore2.rc b/keystore2/keystore2.rc
+index d7d6951..82f5b44 100644
+--- a/keystore2/keystore2.rc
++++ b/keystore2/keystore2.rc
+@@ -1,10 +1,10 @@
+ # Start the keystore2 service.
+ # Keystore 2.0 changes its working directory to the first positional
+-# command line option, i.e., /data/misc/keystore, where it stores its
++# command line argument, i.e., /data/misc/keystore, where it stores its
+ # database.
+ # Keystore shall run as user keystore and groups keystore, readproc, and log.
+ #
+-# See system/core/init/README.md for information on the init.rc language.
++# See system/core/init/README.md for the init.rc language.
+ 
+ service keystore2 /system/bin/keystore2 /data/misc/keystore
+     class early_hal
