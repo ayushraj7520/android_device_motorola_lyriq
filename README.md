@@ -22,9 +22,17 @@ Device configuration for **Motorola Edge 40 (`lyriq`)** targeting **LineageOS 22
 ## Key Architecture & Bringup Highlights
 
 - **OSS Vendor Build:** Full `vendor.img` built from source makefiles + stock Android 15 proprietary blobs ([`proprietary_vendor_motorola_lyriq`](https://github.com/ayushraj7520/proprietary_vendor_motorola_lyriq)).
-- **UDFPS & Biometrics (Egis RBS AIDL + Trustonic TEE):**
-  - Uses custom AIDL Fingerprint HAL (`android.hardware.biometrics.fingerprint-service.motorola`) from [`android_hardware_motorola`](https://github.com/ayushraj7520/android_hardware_motorola) paired with `libudfpshandler` (`udfps/UdfpsHandler.cpp`) for HBM/LHBM illumination control.
-  - Includes `init.lyriq.trustlet_restore.rc` / `init.lyriq.trustlet_restore.sh` to sync factory-provisioned `.drbin`/`.tlbin` trustlets from `/data/vendor/mcRegistry` to `/mnt/vendor/tzapp`.
+- **UDFPS & Biometrics (`mediatek-drm.ko` Reverse-Engineered HBM IOCTL + Egis/Goodix AIDL + Trustonic TEE):**
+  - **Custom DRM Panel Feature IOCTL (`udfps/mediatek_drm.h` & `udfps/UdfpsHandler.cpp`):**
+    - Extracted proprietary DRM ioctl offsets directly from Motorola's `mediatek-drm.ko` and `dsi-panel-mot-boe-nt37701a-655-fhdp-video-144hz.ko`:
+      - `DRM_SET_PANEL_FEATURE = (DRM_COMMAND_END - 2)` (`0x9E` $\rightarrow$ `DRM_IOWR(0x9E, struct panel_param_info)` = `0xC008649E`)
+      - `DRM_GET_PANEL_FEATURE = (DRM_COMMAND_END - 3)` (`0x9D` $\rightarrow$ `DRM_IOWR(0x9D, struct panel_param_info)` = `0xC008649D`)
+    - Defined the exact 8-byte payload structure (`struct panel_param_info { paramId_t param_idx; uint32_t value; }`) where `PARAM_HBM = 0`.
+    - On `onFingerDown()`, `UdfpsHandlerLyriq` opens `/dev/dri/card0` and issues `DRM_IOCTL_SET_PANEL_FEATURE` with `{ param_idx = PARAM_HBM (0), value = 2 }` (`value = 2` triggers FOD-calibrated Local HBM on the BOE NT37701A panel, whereas `value = 1` is regular sunlight HBM), and resets it to `value = 0` on `onFingerUp()` / `onAuthenticationSucceeded()` / `cancel()`.
+  - **Motorola Biometric AIDL Bridge (`IMotoFingerPrint::sendFodEvent`):**
+    - Forwards `FINGER_DOWN (0)` and `FINGER_UP (1)` events over Binder to `com.motorola.hardware.biometric.fingerprint.IMotoFingerPrint/default` with a 1-byte dummy payload (`std::vector<uint8_t> dummyData = { 0 }`) to prevent `std::bad_optional_access` crashes in the proprietary HAL.
+  - **Trustonic TEE Trustlet Loading:**
+    - Uses patched `mcDriverDaemon` (`test-keys` $\rightarrow$ `test-xxxx`) alongside `init.lyriq.trustlet_restore.rc` / `init.lyriq.trustlet_restore.sh` to ensure factory-provisioned `.drbin`/`.tlbin` trustlets (`030b` SPI & FOD TA) load from `/data/vendor/mcRegistry` and `/mnt/vendor/tzapp`.
 - **Sensors (MultiHAL 2.0 + SCP Nanohub):**
   - Uses AOSP `android.hardware.sensors-service.multihal` loading stock Android 15 `sensors.moto.so` and `android.hardware.sensors@2.X-subhal-mediatek.so`.
 - **Connectivity, RIL & IMS:**
